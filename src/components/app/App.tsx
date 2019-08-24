@@ -3,13 +3,13 @@ import { Layout } from "../Layout/Layout";
 import { QuizQuestion } from "../QuizQuestion/QuizQuestion";
 import { TimelineMax } from "gsap";
 
-interface QuizLevel {
+interface IQuestion {
   question: string;
-  correctAnswer: string;
+  correctHashedAnswer: string;
   hint?: string;
 }
 
-const levels: QuizLevel[] = [{ question: "Spørgsmål a ", correctAnswer: "a", hint: "Hint: svaret er a" }, { question: "2", correctAnswer: "b" }, { question: "3", correctAnswer: "c" }, { question: "4", correctAnswer: "d" }, { question: "5", correctAnswer: "e" }, { question: "6", correctAnswer: "f" }, { question: "7", correctAnswer: "g" }, { question: "8", correctAnswer: "h" }, { question: "9", correctAnswer: "i" }, { question: "10", correctAnswer: "j" }];
+const questions: IQuestion[] = [{ question: "Spørgsmål a ", correctHashedAnswer: "0CC175B9C0F1B6A831C399E269772661", hint: "Hint: svaret er a" }, { question: "2", correctHashedAnswer: "b" }, { question: "3", correctHashedAnswer: "c" }, { question: "4", correctHashedAnswer: "d" }, { question: "5", correctHashedAnswer: "e" }, { question: "6", correctHashedAnswer: "f" }, { question: "7", correctHashedAnswer: "g" }, { question: "8", correctHashedAnswer: "h" }, { question: "9", correctHashedAnswer: "i" }, { question: "10", correctHashedAnswer: "j" }];
 const timeLine = new TimelineMax({ paused: true});
 
 const App = () => {
@@ -17,9 +17,9 @@ const App = () => {
   return (
     <Layout>
       <QuizQuestion
-        {...levels[count]}
+        {...questions[count]}
         timeLine={timeLine}
-        renderNextLevel={() => {
+        renderNextQuestion={() => {
           setCount(count + 1);
         }}
       />

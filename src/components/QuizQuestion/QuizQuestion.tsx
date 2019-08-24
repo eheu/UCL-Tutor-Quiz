@@ -2,18 +2,18 @@ import React, { FC, useRef, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import { FORM_ERROR } from "final-form";
 import { TimelineMax, Sine, TweenMax } from "gsap";
-import UCL from "./ucl.svg";
+import md5 from "md5";
 import "./quizquestion.css";
 
 interface IProps {
-  renderNextLevel: () => void;
+  renderNextQuestion: () => void;
   question: string;
-  correctAnswer: string;
+  correctHashedAnswer: string;
   hint?: string;
   timeLine: TimelineMax;
 }
 
-const QuizQuestion: FC<IProps> = ({ question, correctAnswer, hint = undefined, renderNextLevel, timeLine }) => {
+const QuizQuestion: FC<IProps> = ({ question, correctHashedAnswer, hint = undefined, renderNextQuestion, timeLine }) => {
   const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   const inputRef = useRef<HTMLInputElement>(null);
   const u = useRef<SVGPathElement>(null);
@@ -21,61 +21,25 @@ const QuizQuestion: FC<IProps> = ({ question, correctAnswer, hint = undefined, r
   const l = useRef<SVGPathElement>(null);
 
   const onSubmit = async (values: any) => {
-    // timeLine.seek('0', false );
     timeLine.play();
-    // timeLine.seek( '-=0', false );
-    // timeLine.pause();
-    if ((values.answer as string).trim().toLowerCase() !== correctAnswer) {
+    const hashedAnswer = md5((values.answer as string).trim().toLowerCase());
+    if (hashedAnswer !== correctHashedAnswer.trim().toLowerCase()) {
       await sleep(3000);
       timeLine.restart();
       timeLine.pause();
-      TweenMax.fromTo(
-        [u.current!, c.current!, l.current!],
-        0.5,
-        {
-          fill: "white"
-        },
-        {
-          fill: "red",
-          repeat: 1,
-          yoyo: true
-        }
-      );
+      blinkLogoRed(u, c, l);
       return { [FORM_ERROR]: "Forkert svar!" };
     } else {
       await sleep(3000);
       timeLine.restart();
       timeLine.pause();
-      TweenMax.fromTo(
-        [u.current!, c.current!, l.current!],
-        0.5,
-        {
-          fill: "white"
-        },
-        {
-          fill: "green",
-          repeat: 1,
-          yoyo: true
-        }
-      );
-
-      renderNextLevel();
+      blinkLogoGreen(u, c, l);
+      renderNextQuestion();
     }
   };
 
   useEffect(() => {
-    timeLine.to(u.current!, 1, {
-      rotation: 360,
-      transformOrigin: "50% 50%"
-    });
-    timeLine.to(c.current!, 1, {
-      rotation: 360,
-      transformOrigin: "50% 50%"
-    });
-    timeLine.to(l.current!, 1, {
-      rotation: 360,
-      transformOrigin: "50% 50%"
-    });
+    rotateLogo(timeLine, u, c, l);
   });
 
   return (
@@ -115,4 +79,48 @@ const QuizQuestion: FC<IProps> = ({ question, correctAnswer, hint = undefined, r
   );
 };
 
+function blinkLogoGreen(u: React.RefObject<SVGPathElement>, c: React.RefObject<SVGPathElement>, l: React.RefObject<SVGPathElement>) {
+  TweenMax.fromTo(
+    [u.current!, c.current!, l.current!],
+    0.5,
+    {
+      fill: "white"
+    },
+    {
+      fill: "green",
+      repeat: 1,
+      yoyo: true
+    }
+  );
+}
+
+function blinkLogoRed(u: React.RefObject<SVGPathElement>, c: React.RefObject<SVGPathElement>, l: React.RefObject<SVGPathElement>) {
+  TweenMax.fromTo(
+    [u.current!, c.current!, l.current!],
+    0.5,
+    {
+      fill: "white"
+    },
+    {
+      fill: "red",
+      repeat: 1,
+      yoyo: true
+    }
+  );
+}
+
+function rotateLogo(timeLine: TimelineMax, u: React.RefObject<SVGPathElement>, c: React.RefObject<SVGPathElement>, l: React.RefObject<SVGPathElement>) {
+  timeLine.to(u.current!, 1, {
+    rotation: 360,
+    transformOrigin: "50% 50%"
+  });
+  timeLine.to(c.current!, 1, {
+    rotation: 360,
+    transformOrigin: "50% 50%"
+  });
+  timeLine.to(l.current!, 1, {
+    rotation: 360,
+    transformOrigin: "50% 50%"
+  });
+}
 export { QuizQuestion };
