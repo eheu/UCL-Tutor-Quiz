@@ -1,6 +1,6 @@
-import React, { useState, useRef, RefObject } from "react";
-import { Layout } from "../layout/Layout";
-import { QuizQuestion } from "../levels/QuizQuestion";
+import React, { useState } from "react";
+import { Layout } from "../Layout/Layout";
+import { QuizQuestion } from "../QuizQuestion/QuizQuestion";
 import { TimelineMax } from "gsap";
 
 interface QuizLevel {
@@ -14,18 +14,15 @@ const timeLine = new TimelineMax();
 
 const App = () => {
   const [count, setCount] = useState(0);
-  const main: RefObject<HTMLDivElement> = useRef(null);
   return (
     <Layout>
-      <div ref={main}>
-        <QuizQuestion
-          {...levels[count]}
-          timeLine={timeLine}
-          renderNextLevel={() => {
-            setCount(count + 1);
-          }}
-        />
-      </div>
+      <QuizQuestion
+        {...levels[count]}
+        timeLine={timeLine}
+        renderNextLevel={() => {
+          setCount(count + 1);
+        }}
+      />
     </Layout>
   );
 };

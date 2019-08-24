@@ -2,6 +2,7 @@ import React, { FC, useRef, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import { FORM_ERROR } from "final-form";
 import { TimelineMax, Sine } from "gsap";
+// import * as UCL from "./ucl.svg";
 import "./quizquestion.css";
 
 interface IProps {
@@ -62,6 +63,9 @@ const QuizQuestion: FC<IProps> = ({ question, correctAnswer, hint = undefined, r
               {submitError && <span className="errorMessage">{submitError}</span>}
               {submitError && hint && <span className="hint">{hint}</span>}
             </div>
+
+            {/* <UCL /> */}
+
             <svg ref={loadingDivRef} height="100" width="200" visibility="hidden">
               <circle cx="50" cy="50" r="10" fill="black" />
               <circle cx="100" cy="50" r="10" fill="black" />
