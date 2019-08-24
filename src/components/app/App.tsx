@@ -9,8 +9,8 @@ interface QuizLevel {
   hint?: string;
 }
 
-const levels: QuizLevel[] = [{ question: "1", correctAnswer: "a", hint: "Hint: svaret er a" }, { question: "2", correctAnswer: "b" }, { question: "3", correctAnswer: "c" }, { question: "4", correctAnswer: "d" }, { question: "5", correctAnswer: "e" }, { question: "6", correctAnswer: "f" }, { question: "7", correctAnswer: "g" }, { question: "8", correctAnswer: "h" }, { question: "9", correctAnswer: "i" }, { question: "10", correctAnswer: "j" }];
-const timeLine = new TimelineMax();
+const levels: QuizLevel[] = [{ question: "Spørgsmål a ", correctAnswer: "a", hint: "Hint: svaret er a" }, { question: "2", correctAnswer: "b" }, { question: "3", correctAnswer: "c" }, { question: "4", correctAnswer: "d" }, { question: "5", correctAnswer: "e" }, { question: "6", correctAnswer: "f" }, { question: "7", correctAnswer: "g" }, { question: "8", correctAnswer: "h" }, { question: "9", correctAnswer: "i" }, { question: "10", correctAnswer: "j" }];
+const timeLine = new TimelineMax({ paused: true});
 
 const App = () => {
   const [count, setCount] = useState(0);
