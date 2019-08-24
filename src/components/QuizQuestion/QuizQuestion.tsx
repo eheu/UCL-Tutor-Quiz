@@ -64,7 +64,7 @@ const QuizQuestion: FC<IProps> = ({ question, correctAnswer, hint = undefined, r
               {submitError && hint && <span className="hint">{hint}</span>}
             </div>
 
-            {/* <UCL /> */}
+            {/* <UCL />x  */}
 
             <svg ref={loadingDivRef} height="100" width="200" visibility="hidden">
               <circle cx="50" cy="50" r="10" fill="black" />
