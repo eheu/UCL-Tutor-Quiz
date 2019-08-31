@@ -51,6 +51,7 @@
     "@typescript-eslint/parser": "^2.0.0",
     "eslint": "^6.2.1",
     "eslint-config-react-app": "^5.0.1",
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "rc-progress": "^2.5.2"
   }
 }
