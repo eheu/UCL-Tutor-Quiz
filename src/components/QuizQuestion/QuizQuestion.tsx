@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from "react";
+import React, { useRef, useEffect, SFC } from "react";
 import { Form, Field } from "react-final-form";
 import { FORM_ERROR } from "final-form";
 import { TimelineMax, TweenMax } from "gsap";
@@ -16,7 +16,7 @@ interface IProps {
   confetti?: boolean;
 }
 
-const QuizQuestion: FC<IProps> = props => {
+const QuizQuestion: SFC<IProps> = props => {
   const { width, height } = useWindowSize();
   const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   const u = useRef<SVGPathElement>(null);
