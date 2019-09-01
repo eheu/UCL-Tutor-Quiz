@@ -20,6 +20,7 @@ form {
   font-size: 1.5em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #ffffff;
+  white-space: pre-line;
   line-height: 1em;
   text-align: center;
   max-width: 100vw;
