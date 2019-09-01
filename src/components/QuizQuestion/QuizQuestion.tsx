@@ -56,7 +56,7 @@ const QuizQuestion: SFC<IProps> = props => {
       {props.confetti && <Confetti width={width} height={height}/>}
       <Form
         onSubmit={onSubmit}
-        render={({ submitError, handleSubmit, submitting, pristine }) => (
+        render={({ submitError, handleSubmit, submitting, pristine, form }) => (
           <>
             <form onSubmit={handleSubmit}>
               <svg className="logo" xmlns="http://www.w3.org/2000/svg" width="100pt" height="70pt" version="1.1" viewBox="0 0 1000 709">
@@ -65,7 +65,10 @@ const QuizQuestion: SFC<IProps> = props => {
                 <path ref={l} id="l" fill="#ffffff" d=" M 703.94 233.20 C 736.36 231.52 768.87 231.57 801.29 233.17 C 803.34 310.10 801.03 387.07 802.17 464.01 C 802.67 482.86 809.43 501.00 818.79 517.18 C 826.08 529.45 834.17 541.61 845.40 550.67 C 867.33 568.98 895.34 577.51 922.74 583.70 C 925.56 615.54 924.77 647.58 922.91 679.46 C 867.31 675.99 812.16 654.11 771.90 615.14 C 758.97 602.83 748.38 588.37 738.49 573.59 C 716.03 539.05 704.07 498.09 702.88 457.00 C 702.60 449.33 702.98 441.65 703.03 433.98 C 703.95 367.06 701.81 300.11 703.94 233.20 Z" opacity="1.00" />
               </svg>
               <span className="question">{props.question}</span>
-              <Field name="answer">{({ input }) => <input {...input} type="text" placeholder="Dit svar" autoComplete="off" disabled={ submitting || props.confetti} />}</Field>
+              <Field name="answer" afterSubmit={() => form.reset()}>{
+                  ({ input }) => <input {...input} type="text" placeholder="Dit svar" autoComplete="off" disabled={ submitting || props.confetti} />
+                }
+              </Field>
               <button type="submit" disabled={submitting || pristine || props.confetti}>
                 Svar
               </button>
